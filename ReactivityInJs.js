@@ -63,15 +63,29 @@ console.log(total)
 let data = { price: 5, quantity: 2}
 let internalValue = data.price // Our initial value
 
-Object.defineProperty(data, 'price', {//For just the price property
-    get() {
-        console.log(`Getting price: ${internalValue}`)
-        return internalValue
-    },
-    set(newVal) {
-        console.log(`Setting price to: ${newVal}`)
-        internalValue = newVal
-    }
+// Object.defineProperty(data, 'price', {//For just the price property
+//     get() {
+//         console.log(`Getting price: ${internalValue}`)
+//         return internalValue
+//     },
+//     set(newVal) {
+//         console.log(`Setting price to: ${newVal}`)
+//         internalValue = newVal
+//     }
+// })
+
+Object.keys(data).forEach(key => { // We're running this for each item in data now
+    let internalValue = data[key]
+    Object.defineProperty(data, key, {
+        get() {
+            console.log(`Getting ${key}:  ${internalValue}`)
+            return internalValue
+        },
+        set(newVal) {
+            console.log(`Setting ${key} to: ${newVal}`)
+            internalValue = newVal
+        }
+    })
 })
 
 total = data.price * data.quantity
